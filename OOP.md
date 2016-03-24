@@ -6,7 +6,11 @@ class: center, middle
 
 #OO Based VCF Parser
 
-This lecture will 
+* In this lecture we will walk through an example VCF parser
+
+--
+
+* We will use an object oriented programming style to solve our problem
 ---
 
 #VCF files
@@ -20,7 +24,13 @@ This lecture will
 --
 
 * A VCF file can have metadata lines that start with "##", a header line that starts with "#" and then genotype records.
-
+```
+##fileformat=VCFv4.1
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20150218
+...
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG00096	HG00097	HG00099	HG00100	HG00101	HG00102	HG00103	HG00105	HG00106	HG00107
+```
 --
 
 * We are going to use a modified VCF file for todays lecture, which can be downloaded from the [Programming-Spring2016 GitHub repo](https://raw.githubusercontent.com/andrewquitadamo/Programming-Spring2016/master/example.vcf)
@@ -126,14 +136,14 @@ This lecture will
 
 #VcfHeader
 
-* Open up a text file called vcfparse.py and add a class called `VcfHeader`.
+* Open up a text file called `vcfparse.py` and add a class called `VcfHeader`.
 
 --
 
 * There are a few things that this class should do.  
-1) It should store the complete header in a header variable, but it should not include the '#'.  
-2) It should store the first eight fields in a fields variable.  
-3) It should store the sample IDs in a samples variable.
+1) It should store the complete header in a `header` variable, but it should not include the '#'.  
+2) It should store the first eight fields in a `fields` variable.  
+3) It should store the sample IDs in a `samples` variable.
 
 --
 
@@ -141,7 +151,8 @@ This lecture will
 
 --
 
-* In the `__init__` method create a header variable that stores the header without the `#` (Hint: use .replace())
+* In the `__init__` method create a variable called `header` that stores the header without the `#`  
+(Hint: use .replace())
 
 --
 
@@ -479,6 +490,12 @@ return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.joi
 
 ---
 
+# Completed VcfInfo
+
+* TODO: Add finished code
+
+---
+
 # VcfRecord `info` variable
 
 * Now we need to add code to use the `VcfInfo` class in `VcfRecord`
@@ -563,12 +580,25 @@ class VcfFile(object):
 --
 
 ```Python
-vcf = VcfFile('exmaple.vcf')
+vcf = VcfFile('example.vcf')
 ```
 
 --
 
-TODO: write up how to loop through
+* We can print out the whole VCF file
+```Python
+for record in vcf:
+		print record
+```
+
+--
+
+* We can filter based on certain information
+```Python
+for record in vcf.vrs:
+		if record.info.VT == 'INDEL':
+			print record
+```
 
 ---
 
