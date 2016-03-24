@@ -240,7 +240,7 @@ test_header = VcfHeader('#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HG00096 H
 
 ---
 
-# VcfHeader __str__ method
+# VcfHeader \_\_str\_\_ method
 
 * We need to add a way to convert the VcfHeader to a string so we can print it out
 
@@ -264,7 +264,7 @@ class VcfHeader:
 
 ---
 
-# VcfHeader __repr__ method
+# VcfHeader \_\_repr\_\_ method
 
 * We can add a `__repr__` method so our `VcfHeader` class has a nice representation when printed out
 
@@ -432,7 +432,7 @@ class VcfRecord:
 
 My additional code looks like:
 ```Python
-class VCF_Record:
+class VcfRecord:
 	def __init__(self, vcf_line):
 		...
 		self.genotypes = self.get_genotypes()
@@ -473,7 +473,7 @@ for inf in info_line.split(';'):
 
 ---
 
-#VcfInfo __str__
+#VcfInfo \_\_str\_\_
 
 * Next we'll add code to create a string from the `VcfInfo` class
 
@@ -493,7 +493,30 @@ return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.joi
 
 # Completed VcfInfo
 
-* TODO: Add finished code
+```Python
+class VCF_info:
+    def __init__(self, info_line):
+        self.info_line = info_line
+        for inf in info_line.split(';'):
+            if inf.startswith('AC'):
+                self.AC = inf.split('=')[-1].split(',')
+            if inf.startswith('AF'):
+                self.AF = inf.split('=')[-1].split(',')
+            if inf.startswith('AN'):
+                self.AN = inf.split('=')[-1].split(',')
+            if inf.startswith('NS'):
+                self.NS = inf.split('=')[-1].split(',')
+            if inf.startswith('DP'):
+                self.DP = inf.split('=')[-1].split(',')
+            if inf.startswith('VT'):
+                self.VT = inf.split('=')[-1]
+                
+    def __str__(self):
+        return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.join(self.AN)
+               + ' NS=' + ','.join(self.NS) + ' DP=' + ','.join(self.DP) + ' VT=' + str(self.VT))
+        
+    __repr__ = __str__
+```
 
 ---
 
@@ -513,7 +536,7 @@ return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.joi
 
 My code is below:
 ```Python
-class VCF_Record:
+class VcfRecord:
 	def __init__(self, vcf_line):
 		...
 		self.info = self.get_info()
@@ -586,9 +609,9 @@ vcf = VcfFile('example.vcf')
 
 --
 
-* We can print out the whole VCF file
+* We can print out all of the record
 ```Python
-for record in vcf:
+for record in vcf.vrs:
 		print record
 ```
 
