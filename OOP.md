@@ -24,12 +24,13 @@ class: center, middle
 --
 
 * A VCF file can have metadata lines that start with "##", a header line that starts with "#" and then genotype records.
-```
+```Shell
 ##fileformat=VCFv4.1
 ##FILTER=<ID=PASS,Description="All filters passed">
 ##fileDate=20150218
 ...
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG00096	HG00097	HG00099	HG00100	HG00101	HG00102	HG00103	HG00105	HG00106	HG00107
+1	10177	rs367896724	A	AC	100	PASS	AC=2130;AF=0.425319;AN=5008;NS=2504;DP=103152;EAS_AF=0.3363;AMR_AF=0.3602;AFR_AF=0.4909;EUR_AF=0.4056;SAS_AF=0.4949;AA=|||unknown(NO_COVERAGE);VT=INDEL	GT	1|0	0|1	0|1	1|0	0|0	1|0	1|0	1|0	1|0	0|0
 ```
 --
 
@@ -84,7 +85,7 @@ class: center, middle
 
 --
 
-* For variants that are multiallelic some of these fields are comma separated lists
+* For variants that are multiallelic some of these subfields are comma separated lists
 
 --
 
@@ -165,7 +166,7 @@ class VcfHeader:
 
 ---
 
-#VcfHeader -- `fields`
+#VcfHeader -- fields
 
 * Next we'll add some code to store the first eight fields
 
@@ -189,7 +190,7 @@ class VcfHeader:
 
 ---
 
-# VcfHeader -- `samples`
+# VcfHeader -- samples
 
 * Next let's add some code to store the sample IDs
 
@@ -239,7 +240,7 @@ test_header = VcfHeader('#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HG00096 H
 
 ---
 
-# VcfHeader `__str__` method
+# VcfHeader __str__ method
 
 * We need to add a way to convert the VcfHeader to a string so we can print it out
 
@@ -263,7 +264,7 @@ class VcfHeader:
 
 ---
 
-# VcfHeader `__repr__` method
+# VcfHeader __repr__ method
 
 * We can add a `__repr__` method so our `VcfHeader` class has a nice representation when printed out
 
@@ -317,7 +318,7 @@ class VcfRecord:
 
 ---
 
-# `VcfRecord` `chr` variable
+# VcfRecord chr variable
 
 * Next we'll create some methods to deal with the informational fields
 
@@ -339,7 +340,7 @@ def get_chr(self):
 	
 ---
 
-#`VcfRecord` `chr` variable (cont.)
+#VcfRecord chr variable (cont.)
 
 * In the `__init__` method add a line to get the results from `get_chr` and store it in a variable called `chr`
 
@@ -358,7 +359,7 @@ class VcfRecord:
 
 ---
 
-#Other `VcfRecord` variables
+#Other VcfRecord variables
 
 * Now we'll create methods to get and store `pos`, `id`, `ref`, `alt`, `qual`, `filt`, and `formt` variables
 
@@ -368,7 +369,7 @@ class VcfRecord:
 
 ---
 
-# Other `VcfRecord` variables
+# Other VcfRecord variables
 
 My class now looks like:
 ```Python
@@ -415,7 +416,7 @@ class VcfRecord:
 
 ---
 
-# `genotype` variable
+# genotype variable
 
 * We need to add a variable to hold the genotypes of the VCF record
 
@@ -444,7 +445,7 @@ class VCF_Record:
 
 ---
 
-# `VcfInfo` class
+# VcfInfo class
 
 * We will create a new class called `VcfInfo` to store all the data from the INFO field
 
@@ -468,11 +469,11 @@ for inf in info_line.split(';'):
 
 --
 
-* Add more if statments to add the data from `AF`, `AN`, `NS`, `DP` and `VT`
+* Add more if statements to add the data from `AF`, `AN`, `NS`, `DP` and `VT`
 
 ---
 
-#`VcfInfo __str__`
+#VcfInfo __str__
 
 * Next we'll add code to create a string from the `VcfInfo` class
 
@@ -496,7 +497,7 @@ return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.joi
 
 ---
 
-# VcfRecord `info` variable
+# VcfRecord info variable
 
 * Now we need to add code to use the `VcfInfo` class in `VcfRecord`
 
@@ -526,7 +527,7 @@ class VCF_Record:
 
 ---
 
-# `VcfFile` class
+# VcfFile class
 
 * Now that we have working `VcfHeader` and `VcfRecord` classes let's create a `VcfFile` class to tie it all together
 
@@ -543,7 +544,7 @@ class VCF_Record:
 * Create a method called `load_vcf` which just takes self as an argument, and returns a VcfHeader instance, and an array of VcfRecord instances.
 
 ---
-# `VcfFile` class (cont.)
+# VcfFile class (cont.)
 
 My code is below
 ```Python
@@ -565,7 +566,7 @@ class VcfFile(object):
 
 ---
 
-# Testing `VcfFile`
+# Testing VcfFile
 
 * Open a new Python interactive shell
 
