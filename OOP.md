@@ -159,7 +159,7 @@ class: center, middle
 
 Currently my code looks like:  
 ```Python
-class VcfHeader:
+class VcfHeader(object):
 	def __init__(self, vcf_header):
 		self.header = vcf_header.replace('#','')
 ```
@@ -182,7 +182,7 @@ class VcfHeader:
 
 My version looks like this:
 ```Python
-class VcfHeader:
+class VcfHeader(object):
 	def __init__(self, vcf_header):
 		self.header = vcf_header.replace('#','')
 		self.fields = str(self.header).split()[:9]
@@ -202,7 +202,7 @@ class VcfHeader:
 
 My version looks like this:
 ```Python
-class VcfHeader:
+class VcfHeader(object):
 	def __init__(self, vcf_header):
 		self.header = vcf_header.replace('#','')
 		self.fields = str(self.header).split()[:9]
@@ -252,7 +252,7 @@ test_header = VcfHeader('#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT HG00096 H
 
 My `VcfHeader` class now looks like:
 ```Python
-class VcfHeader:
+class VcfHeader(object):
 	def __init__(self, vcf_header):
 		self.header = vcf_header.replace('#','')
 		self.fields = str(self.header).split()[:9]
@@ -276,7 +276,7 @@ class VcfHeader:
 
 My final `VcfHeader` class looks like:
 ```Python
-class VcfHeader:
+class VcfHeader(object):
 	def __init__(self, vcf_header):
 		self.header = vcf_header.replace('#','')
 		self.fields = str(self.header).split()[:9]
@@ -311,7 +311,7 @@ class VcfHeader:
 
 My `VcfRecord` class currently looks like this:
 ```Python
-class VcfRecord:
+class VcfRecord(object):
 	def __init__(self, vcf_line):
 		self.data = vcf_line
 ```
@@ -348,7 +348,7 @@ def get_chr(self):
 
 My `VcfRecord` class now looks like:
 ```Python
-class VcfRecord:
+class VcfRecord(object):
 	def __init__(self, vcf_line):
 		self.data = vcf_line
 		self.chr = self.get_chr()
@@ -373,7 +373,7 @@ class VcfRecord:
 
 My class now looks like:
 ```Python
-class VcfRecord:
+class VcfRecord(object):
     def __init__(self, vcf_line):
         self.data = vcf_line
         self.chr = self.get_chr()
@@ -432,7 +432,7 @@ class VcfRecord:
 
 My additional code looks like:
 ```Python
-class VcfRecord:
+class VcfRecord(object):
 	def __init__(self, vcf_line):
 		...
 		self.genotypes = self.get_genotypes()
@@ -494,7 +494,7 @@ return('AC=' + ','.join(self.AC) + ' AF=' + ','.join(self.AF) + ' AN=' + ','.joi
 # Completed VcfInfo
 
 ```Python
-class VCF_info:
+class VCF_info(object):
     def __init__(self, info_line):
         self.info_line = info_line
         for inf in info_line.split(';'):
@@ -536,7 +536,7 @@ class VCF_info:
 
 My code is below:
 ```Python
-class VcfRecord:
+class VcfRecord(object):
 	def __init__(self, vcf_line):
 		...
 		self.info = self.get_info()
