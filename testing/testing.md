@@ -84,7 +84,7 @@ def gc(sequence):
 
 # Your first test
 
-* Python comes with a built in testing library called unittest, which we'll be using today
+* Python comes with a built in testing library called `unittest`
 
 --
 
@@ -103,11 +103,11 @@ if __name__ == '__main__':
 
 --
 
-* All unittest functions need to start with `test`  
+* All `unittest` functions need to start with `test`  
 
 --
 
-* You can run the tests by using the command line `python test_gc.py`  
+* You can run the tests just like you would run a normal python script `python test_gc.py`  
 
 --
 
@@ -119,9 +119,9 @@ if __name__ == '__main__':
 
 ---
 
-# Checking the function
+# Checking the gc function
 
-* Before we can test the function we created we need to import it
+* Before we can test `gc` we need to import it from `gc_calc.py`
 
 --
 
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
 --
 
-* Replace the old function with
+* Replace the `test_the_simplest` function with
 ```Python
 def test_gc(self):
 		self.assertEqual(gc('ACTG'), 0.5)
@@ -147,7 +147,7 @@ def test_gc(self):
 
 # Adding more tests
 
-* We added a very simple test, lets add a longer one
+* We currently have a very simple test, lets add one for a longer sequence
 
 --
 
@@ -158,7 +158,7 @@ def test_long(self):
 
 --
 
-* Testing is also about finding out what happens when inputs aren't what are expected, and we can add tests for that too
+* We can also add tests for inputs that we don't expect
 
 --
 
@@ -179,21 +179,25 @@ def test_empty(self):
 
 #Asserts
 
-* Most tests in unittest use asserts to asses the tests. 
+* Most tests in unittest use asserts to asses the validity of the tests
 
 --
 
-* We've seen `assertEqual`, `assertAlmostTrue`, and `assertRaises`. 
+* We've used `assertEqual`, `assertAlmostTrue`, and `assertRaises`
 
 --
 
 * There are also `assertTrue`, `assertFalse`, `assertIsNone`, `assertIsNotEqual`, `assertIn`, `assertIsInstance`, `assertGreater`, `assertRegex`, `assertListEqual` and many more.
 
+--
+
+* Each can be used to help you test the full range of functionality of your program
+
 ---
 
 # Thinking about the intended function
 
-* Now that we have working tests lets think about what we really want our function to do
+* Now that we have working tests we can think about what we really want our function to do, compared to what it actually does
 
 --
 
@@ -239,17 +243,17 @@ Traceback (most recent call last):
 ---
 # Refactoring
 
-* These are the things that you should be thinking about when programming, but you can also think about them during testing
+* How you handle inputs is something you should think about when programming, but you can also think about them during testing
 
 --
 
-* Lets refactor our GC function to take into account these different types of input
+* Lets refactor our GC function to take into account these different types of inputs
 
 --
 
 My version is below:
 ```Python
-def gc3(sequence):
+def gc(sequence):
     gc_count = 0
     valid_nucleotides = ['A','C','T','U','G','N']
     for nuc in sequence:
@@ -276,26 +280,26 @@ def gc3(sequence):
 
 ```Python
 def test_lowercase(self):
-	self.assertEqual(gc3('AcTg'), 0.5)
+	self.assertEqual(gc('AcTg'), 0.5)
 ```
 
 --
 
 ```Python
 def test_random(self):
-	self.assertRaises(Exception, gc3, 'This is just a random sentance, but we still get a gc content back.')
+	self.assertRaises(Exception, gc, 'This is just a random sentence, but we still get a gc content back.')
 ```
 
 --
 
 ```Python
 def test_empty_string(self):
-	self.assertEqual(gc3(''), 0)
+	self.assertEqual(gc(''), 0)
 ```
 
 --
 
-* Add these tests and rerun `test_gc.py`. Make sure that the test pass.
+* Add these tests and rerun `test_gc.py`. Make sure that the test pass
 
 ---
 
@@ -305,11 +309,11 @@ def test_empty_string(self):
 
 --
 
-* We'll use the VcfHeader class we previously wrote as an example.
+* We'll use the VcfHeader class we previously wrote as an example
 
 --
 
-* If you don't have a copy of VcfHeader, open a text file called `vcffile.py` and paste the code from below into the file.
+* If you don't have a copy of VcfHeader, open a text file called `vcffile.py` and paste the code from below into the file
 
 --
 
@@ -376,11 +380,18 @@ if __name__ == '__main__':
 
 # Unintended changes
 
-* Well written tests allow you catch any changes that break your functionality
+* Well written tests allow you to catch any changes that break your functionality
 
 --
 
-* Let's make a breaking change to the VcfHeader class. Change the `self.fields` line to be `self.fields = str(self.header).split()[:8]`
+* Let's make a breaking change to the VcfHeader class. 
+
+--
+
+* Change the `self.fields` line to be 
+```Python
+self.fields = str(self.header).split()[:8]
+```
 
 --
 
@@ -434,3 +445,132 @@ FAILED (failures=2)
 --
 
 * This afternoon in lab section we will continue the theme of testing and explore continuous integration with Travis CI
+
+---
+
+# Travis CI
+
+* Travis CI is a service that integrates with GitHub and will automatically run your tests whenever you push a commit to GitHub
+
+--
+
+* This reduces a barrier for you running tests. Instead of having to run them yourselves, Travis CI handles all of it for you
+
+--
+
+* You can also test on multiple different versions of a language, we'll use it to run our tests on Python 2.6, 2.7, 3.2, 3.3, 3.4, and 3.5
+
+--
+
+* Travis CI supports many different languages including Python, Perl, R, Java, C, C++, Go, Haskell, Julia, JavaScript, Rust, Scala and others
+
+---
+
+# Creating a GitHub Repo
+
+* Before we can run our tests with Travis CI we need to put our code on GitHub
+
+--
+
+* Log into your GitHub account and create a new repository. 
+
+--
+
+* It doesn't matter what you call it. `testing-demo` will work if you aren't feeling creative
+
+--
+
+* Make sure you initialize the repo with a README, and then clone the repo to your local machine
+
+---
+
+# Commit your code
+
+* Move the `gc_calc.py` file and the `test_gc.py` file into the repository
+
+--
+
+* Use `git add` and `git commit -m` to commit your code (remember the commit message)
+--
+
+* Use `git push` to push your code up to GitHub
+
+---
+
+# Setting up Travis CI
+
+* Go to the [Travis CI site](https://travis-ci.org/) and click the big green "Sign Up" button. 
+
+--
+
+* You'll need to use your GitHub credentials to login.
+
+--
+
+* When you are signed up, find the repositories tab, and flip the switch for your `testing-demo` repo 
+
+--
+
+* Next we need to add a .travis.yml file
+
+---
+
+#.travis.yml file
+
+* The `.travis.yml` file is used to tell Travis CI how to run the tests for your repository
+
+--
+
+* Create a file in your `testing-demo` repo called `.travis.yml`, and paste the following code into it.
+
+```yaml
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+script: python test_gc.py
+```
+
+--
+
+* The `language` section species what language environment Travis CI should use, and what versions to test with
+
+--
+
+* The `script` section tells Travis CI how to run your tests. In this case it is exactly the same as how you run the tests on the commandline
+
+---
+
+# Commit .travis.yml
+
+* Use `git add` and `git commit` to commit your `.travis.yml` file 
+
+--
+
+* `git push` the changes up to GitHub
+
+--
+
+* Check your Travis CI page, if all has gone well a new build will start
+
+--
+
+* In a minute or so your builds should finish
+
+--
+
+* If everything works all the builds should turn green as your tests pass
+
+--
+
+* If your tests fail, the build will turn red, and Travis CI will send you an email letting you know
+
+---
+
+# Coverage
+
+
