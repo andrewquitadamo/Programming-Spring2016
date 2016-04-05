@@ -6,7 +6,7 @@ class: center, middle
 
 #Overview
 
-* Motiviation for testing
+* Motivation for testing
 
 --
 
@@ -54,7 +54,7 @@ class: center, middle
 
 # A functional example
 
-* For the first part of the the lecture we will be creating tests for a function that calculates GC content of a sequence
+* For the first part of the lecture we will be creating tests for a function that calculates the GC content of a sequence
 
 --
 
@@ -119,21 +119,24 @@ if __name__ == '__main__':
 
 ---
 
-# Checking the gc function
+# Testing the gc function
 
 * Before we can test `gc` we need to import it from `gc_calc.py`
 
 --
 
-* Add `from gc_calc import gc` to your imports
+* Add `gc` to your imports
+```Python
+from gc_calc import gc
+```
 
 --
 
-* The first thing we'll do is create a simple example to make sure our function works the way we think it will 
+* Our first test will replicate the manual testing we did
 
 --
 
-* Replace the `test_the_simplest` function with
+* Replace the `test_the_simplest` function with:
 ```Python
 def test_gc(self):
 		self.assertEqual(gc('ACTG'), 0.5)
@@ -179,11 +182,11 @@ def test_empty(self):
 
 #Asserts
 
-* Most tests in unittest use asserts to asses the validity of the tests
+* Asserts are used by unittest to asses the validity of the tests
 
 --
 
-* We've used `assertEqual`, `assertAlmostTrue`, and `assertRaises`
+* We've used `assertEqual`, `assertAlmostEqual`, and `assertRaises`
 
 --
 
@@ -197,7 +200,7 @@ def test_empty(self):
 
 # Thinking about the intended function
 
-* Now that we have working tests we can think about what we really want our function to do, compared to what it actually does
+* While testing we should think about what we really want our function to do, compared to what it actually does
 
 --
 
@@ -236,7 +239,7 @@ Traceback (most recent call last):
 --
 
 ```Python
->>> gc('This is just a random sentance, but we still get a GC content back.')
+>>> gc('This is just a random sentence, but we still get a GC content back.')
 0.029850746268656716
 ```
 
@@ -440,7 +443,7 @@ FAILED (failures=2)
 
 --
 
-* In my experience writing tests make you think about the code you've written, and can lead to improvements in the readability and functionality of the code
+* In my experience, writing tests makes you think about the code you've written, and can lead to improvements in the readability and functionality
 
 --
 
@@ -458,11 +461,10 @@ FAILED (failures=2)
 
 --
 
-* You can also test on multiple different versions of a language, we'll use it to run our tests on Python 2.6, 2.7, 3.2, 3.3, 3.4, and 3.5
-
+* Travis CI supports many different languages including Python, Perl, R, Java, C, C++, Go, Haskell, Julia, JavaScript, Rust, Scala and others
 --
 
-* Travis CI supports many different languages including Python, Perl, R, Java, C, C++, Go, Haskell, Julia, JavaScript, Rust, Scala and others
+* You can also test on multiple different versions of a language, we'll use it to run our tests on Python 2.6, 2.7, 3.2, 3.3, 3.4, and 3.5
 
 ---
 
@@ -490,7 +492,8 @@ FAILED (failures=2)
 
 --
 
-* Use `git add` and `git commit -m` to commit your code (remember the commit message)
+* Use `git add` and `git commit -m` to commit your code.  
+(Remember the commit message)
 --
 
 * Use `git push` to push your code up to GitHub
@@ -555,7 +558,7 @@ script: python test_gc.py
 
 --
 
-* Check your Travis CI page, if all has gone well a new build will start
+* Check your Travis CI page, if all has gone well, a new build will start
 
 --
 
@@ -571,6 +574,22 @@ script: python test_gc.py
 
 ---
 
-# Coverage
+# Other uses
 
+* You can add a Travis CI build badge to your repository README, to let other people know that you are using CI and the status of the build.
 
+--
+
+* You can also use Travis CI for code coverage statistics
+
+--
+
+* Code coverage tells you how much of your code has tests
+
+--
+
+* [coveralls.io](https://coveralls.io/) is a service that interacts with Travis CI to do code coverage
+
+--
+
+* Like the build badge, you can also add a code coverage badge to your repo
